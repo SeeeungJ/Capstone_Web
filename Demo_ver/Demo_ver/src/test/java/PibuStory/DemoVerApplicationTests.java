@@ -1,4 +1,4 @@
-package PibuStory.Demo_ver;
+package PibuStory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
