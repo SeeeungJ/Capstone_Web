@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User Form</title>
+</head>
+<body>
+<h1>Create New User</h1>
+<form action="/user" method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name">
+  <br>
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age">
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

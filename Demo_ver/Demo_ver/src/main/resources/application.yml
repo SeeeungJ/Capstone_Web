@@ -1,0 +1,4 @@
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://seungjun0220:<tmdwns2385!>@mycluster.1h1zz.mongodb.net/?retryWrites=true&w=majority&appName=myCluster

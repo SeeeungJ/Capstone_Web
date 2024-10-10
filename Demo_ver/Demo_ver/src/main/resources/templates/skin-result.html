@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>피부 분석 결과</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        .result-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .result-container h1 {
+            margin-bottom: 20px;
+        }
+        .result-container p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .result-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        .recommendations {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .recommendation-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        .recommendation-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .star-ratings {
+            position: relative;
+            display: inline-block;
+            font-size: 20px;
+            line-height: 20px;
+            color: #ccc;
+        }
+
+        .star-ratings .filled-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            color: #f5c518;
+        }
+
+        .star-ratings::before,
+        .star-ratings .filled-stars::before {
+            content: "★★★★★";
+        }
+    </style>
+</head>
+<body>
+<div class="result-container">
+    <h1>피부 분석 결과</h1>
+    <p>분석된 피부 타입: <strong th:text="${skinType}"></strong></p>
+    <img th:src="${resultImage}" alt="분석 결과 이미지" />
+
+    <h2>추천 화장품</h2>
+    <div class="recommendations">
+        <div th:each="product : ${recommendations}" class="recommendation-item">
+            <img th:src="${product.image_link}" alt="제품 이미지" />
+            <div>
+                <p><strong th:text="${product.product}"></strong></p>
+                <p>브랜드: <span th:text="${product.brand}"></span></p>
+                <p>리뷰 수: <span th:text="${product.review_count}"></span></p>
+                <div class="star-ratings">
+                    <div class="filled-stars" th:style="'width:' + (${product.rating_average} / 5.0 * 100) + '%'">
+                        <span th:text="${product.rating_average}"></span>
+                    </div>
+                </div>
+                <p>가격: <span th:text="${product.price_after}"></span>원 (정가: <span th:text="${product.price_before}"></span>원)</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="/skin-type" class="back-link">다시 분석하기</a>
+</div>
+</body>
+</html>

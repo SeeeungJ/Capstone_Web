@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/content.js" defer></script>
+    <link rel="stylesheet" href="/css/content.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- Header Include -->
+    <th:block th:replace="header :: header"></th:block>
+    <!-- Main Content -->
+    <div id="session">
+        <div id="session-title">
+            <h3>피부 분석</h3>
+            <hr style="width: 150%;">
+            <p>
+                사진을 불러오거나 웹캠을 통해 촬영하여<br>
+                피부 분석을 진행해보세요.
+            </p>
+        </div>
+        <div id="session-content">
+            <div id="main-img-box">
+                <div class="image-container">
+                    <img class="image" src="/image/session2_img2.jpg" alt="피부 진단 모델">
+                </div>
+            </div>
+
+            <div id="main-content-box">
+                <div id="webcam-box">
+                    <label class="input-file-button" for="input-webcam">웹캠 촬영하기</label>
+                    <button class="input" id="input-webcam">웹캠 촬영하기</button>
+                </div>
+                <form action="/run-skin_model" method="post" enctype="multipart/form-data">
+                    <div id="file-box">
+                        <label class="input-file-button" for="input-file">사진 불러오기</label>
+                        <input type="file" id="input-file" name="image" class="input"/>
+                    </div>
+                    <div id="file-info" style="display: none;">
+                        <p id="file-name"></p>
+                        <button type="submit" id="check-btn">검사하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Include -->
+    <th:block th:replace="footer :: footer"></th:block>
+</div>
+</body>
+</html>

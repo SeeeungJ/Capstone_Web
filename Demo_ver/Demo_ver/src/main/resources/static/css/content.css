@@ -1,0 +1,205 @@
+/* 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body 설정 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    /* overflow-x: hidden; 가로 스크롤 방지 */
+}
+
+/* Wrapper 설정 */
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Main content */
+#session {
+    width: 70%;
+    height: 700px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#session-title {
+    margin-top: 50px;
+    display: flex; /* 활성화 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#session-title h3 {
+    font-size: 30px;
+    color: #333;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#session-title hr {
+    width: 150%;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+#session-title p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+}
+
+/* 이미지와 파일 버튼을 나란히 배치 */
+#session-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* 이미지와 버튼 사이의 간격 조정 */
+    margin-top: 70px;
+}
+
+#main-img-box {
+    width: 300px;
+    height: 300px;
+}
+
+#main-img-box .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#main-content-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* 각 버튼 간의 간격 조정 */
+}
+
+.input-file-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.input-file-button:hover {
+    background-color: #45a049;
+}
+
+#input-file, #input-webcam {
+    display: none; /* 실제 파일 선택 버튼과 웹캠 버튼을 숨기기 */
+}
+
+
+
+
+#session-content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* image box */
+#main-img-box{
+    width: 65%;
+    max-width: 700px; /* 원하는 이미지 너비 */
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* 이미지가 넘치지 않게 설정 */
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+/* 이미지에 그라데이션 마스크 효과 적용 */
+.image-container img {
+    width: 100%;
+    height: auto;
+    /* -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%); */
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+}
+
+/* 이미지 스타일 */
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* main-content-box */
+#main-content-box{
+    width: 35%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
+.input{
+    display: none;
+}
+
+.input-file-button{
+    padding: 20px 30px;
+    background-color: white;
+    border: 1px solid #000000;
+    color: black;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.input-file-button:hover{
+    background-color: #000000;
+    color: white;
+    transition: 0.5s;
+}
+
+
+/* 불러온 파일 정보와 검사하기 버튼 */
+#file-info {
+    margin-top: 20px;
+    text-align: center;
+    display: none; /* 파일이 선택되지 않으면 보이지 않도록 설정 */
+}
+
+#file-name {
+    font-size: 14px;
+    color: #333;
+}
+
+#check-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#check-btn:hover {
+    background-color: #45a049;
+}

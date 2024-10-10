@@ -1,0 +1,49 @@
+<!-- src/main/resources/templates/error.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>오류 발생</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    .error-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      background-color: #fdecea;
+      border: 1px solid #f5c6cb;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .error-container h1 {
+      color: #a94442;
+      margin-bottom: 20px;
+    }
+    .error-container p {
+      font-size: 18px;
+      color: #a94442;
+    }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #a94442;
+      font-size: 16px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="error-container">
+  <h1>오류 발생</h1>
+  <p th:text="${message}"></p>
+  <a href="" class="back-link">다시 시도하기</a>
+</div>
+</body>
+</html>
