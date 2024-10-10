@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>아이디 찾기 결과</title>
+</head>
+<body>
+<h1>아이디 찾기 결과</h1>
+<p>아이디는: <span th:text="${foundUsername}"></span></p>
+
+<form th:action="@{/login}" method="get">
+  <button type="submit">로그인 페이지로 이동</button>
+</form>
+</body>
+</html>

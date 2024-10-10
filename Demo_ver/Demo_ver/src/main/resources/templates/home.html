@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>홈</title>
+  <script>
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // 로그인 성공 시 alert 띄우기
+      if (urlParams.has('success')) {
+        alert("로그인 성공!");
+        // URL에서 success 파라미터 제거
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    };
+  </script>
+
+</head>
+<body>
+<h1>홈 페이지</h1>
+<p>로그인에 성공했습니다! 여기는 홈 페이지입니다.</p>
+<form th:action="@{/my-page}" method="get">
+  <button type="submit">마이페이지</button>
+</form>
+<form th:action="@{/logout}" method="post">
+  <button type="submit">로그아웃</button>
+</form>
+</body>
+</html>

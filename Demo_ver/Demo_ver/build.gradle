@@ -22,8 +22,29 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	// security (비밀번호 암호화 - 회원가입, 로그인 시 사용)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 로그인 코드 때 추가
+	implementation 'org.springframework.security:spring-security-core' // 인증과 권한 부여를 처리하는데 필요한 클래스와 인터페이스 포함
+	implementation 'org.springframework.security:spring-security-config' // spring-security의 설정을 쉽게 할 수 있도록 도와줌 (XML 또는 Java 기반 설정을 통해 보안 규칙을 정의하는 데 필요한 클래스를 제공)
+	implementation 'org.springframework.security:spring-security-web' // 웹 애플리케이션에 보안을 적용하는 데 필요한 기능을 제공 (HTTP 요처에 대한 보안 처리 담당, 요청 필터링, 세견 관리, CORS, CSRF 보호 등)
+
+	// lombok
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// 일단 안지움 근데 이거 아이디 중복 체크 할 때 쓰는거임
+tasks.withType(JavaCompile) {
+	options.compilerArgs << '-parameters'
 }

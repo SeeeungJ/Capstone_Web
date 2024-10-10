@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>회원가입</title>
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+    .success-message {
+      color: green;
+      font-size: 12px;
+    }
+  </style>
+  <script>
+    // 중복 체크 상태를 저장하는 변수
+    let validationResults = {
+      username: false,
+      nickname: false,
+      email: false
+    };
+
+    // 실시간 아이디 중복 체크
+    function checkUsername() {
+      const username = document.getElementById('username').value;
+      const usernameError = document.getElementById('username-error');
+
+      usernameError.textContent = '';
+
+      if (!username) {
+        usernameError.textContent = "아이디를 입력해주세요.";
+        return;
+      }
+
+      fetch(`/api/users/check-username?username=${username}`)
+              .then(response => response.json())
+              .then(isAvailable => {
+                if (!isAvailable) {
+                  usernameError.textContent = "이미 사용중인 아이디입니다.";
+                  usernameError.className = "error-message";
+                } else {
+                  usernameError.textContent = "사용 가능한 아이디입니다.";
+                  usernameError.className = "success-message";
+                }
+              })
+              .catch(error => {
+                usernameError.textContent = "아이디 중복 체크 중 오류가 발생했습니다.";
+                usernameError.className = "error-message";
+              });
+    }
+
+    // 실시간 닉네임 중복 체크
+    function checkNickname() {
+      const nickname = document.getElementById('nickname').value;
+      const nicknameError = document.getElementById('nickname-error');
+
+      nicknameError.textContent = '';
+
+      if (!nickname) {
+        nicknameError.textContent = "닉네임을 입력해주세요.";
+        return;
+      }
+
+      fetch(`/api/users/check-nickname?nickname=${nickname}`)
+              .then(response => response.json())
+              .then(isAvailable => {
+                if (!isAvailable) {
+                  nicknameError.textContent = "이미 사용중인 닉네임입니다.";
+                  nicknameError.className = "error-message";
+                } else {
+                  nicknameError.textContent = "사용 가능한 닉네임입니다.";
+                  nicknameError.className = "success-message";
+                }
+              })
+              .catch(error => {
+                nicknameError.textContent = "닉네임 중복 체크 중 오류가 발생했습니다.";
+                nicknameError.className = "error-message";
+              });
+    }
+
+    // 실시간 이메일 중복 체크
+    function checkEmail() {
+      const email = document.getElementById('email').value;
+      const emailError = document.getElementById('email-error');
+
+      emailError.textContent = '';
+
+      if (!email) {
+        emailError.textContent = "이메일을 입력해주세요.";
+        return;
+      }
+
+      fetch(`/api/users/check-email?email=${email}`)
+              .then(response => response.json())
+              .then(isAvailable => {
+                if (!isAvailable) {
+                  emailError.textContent = "이미 사용중인 이메일입니다.";
+                  emailError.className = "error-message";
+                } else {
+                  emailError.textContent = "사용 가능한 이메일입니다.";
+                  emailError.className = "success-message";
+                }
+              })
+              .catch(error => {
+                emailError.textContent = "이메일 중복 체크 중 오류가 발생했습니다.";
+                emailError.className = "error-message";
+              });
+    }
+  </script>
+</head>
+<body>
+<h1>회원가입</h1>
+
+<div th:if="${errorMessage}">
+  <p th:text="${errorMessage}" class="error-message"></p>
+</div>
+
+<form th:action="@{/api/users/register}" th:object="${user}" method="post">
+  <div>
+    <label for="username">아이디:</label>
+    <input type="text" id="username" th:field="*{username}" oninput="checkUsername()" required />
+    <div id="username-error" class="error-message"></div>
+  </div>
+  <div>
+    <label for="nickname">닉네임:</label>
+    <input type="text" id="nickname" th:field="*{nickname}" oninput="checkNickname()" required />
+    <div id="nickname-error" class="error-message"></div>
+  </div>
+  <div>
+    <label for="email">이메일:</label>
+    <input type="email" id="email" th:field="*{email}" oninput="checkEmail()" required />
+    <div id="email-error" class="error-message"></div>
+  </div>
+  <div>
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" th:field="*{password}" required />
+  </div>
+  <div>
+    <label for="name">이름:</label>
+    <input type="text" id="name" th:field="*{name}" required />
+  </div>
+  <div>
+    <label for="gender">성별:</label>
+    <select id="gender" th:field="*{gender}" required>
+      <option value="male">남자</option>
+      <option value="female">여자</option>
+    </select>
+  </div>
+  <div>
+    <label for="phoneNumber">전화번호:</label>
+    <input type="tel" id="phoneNumber" th:field="*{phoneNumber}" required />
+  </div>
+  <div>
+    <label for="birthDate">생년월일:</label>
+    <input type="date" id="birthDate" th:field="*{birthDate}" required />
+  </div>
+
+  <div>
+    <button type="submit" id="submitButton">회원가입</button>
+  </div>
+</form>
+
+<form th:action="@{/login}" method="get">
+  <button type="submit">로그인 페이지로 이동</button>
+</form>
+
+</body>
+</html>

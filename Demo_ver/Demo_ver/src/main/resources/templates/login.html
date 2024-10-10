@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>로그인</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // 회원가입 성공 시 alert 띄우기
+            const successMessage = "[[${successMessage}]]";
+            if (successMessage && successMessage !== 'null') {
+                alert(successMessage);
+            }
+
+            // 로그인 성공 시 alert 띄우기
+            if (urlParams.has('success')) {
+                alert("로그인 성공: 로그인 페이지로 이동합니다.");
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // 로그인 실패 시 alert 띄우기
+            if (urlParams.has('error')) {
+                alert("로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.");
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // 로그아웃 성공 시 alert 띄우기
+            if (urlParams.has('logout')) {
+                alert("성공적으로 로그아웃되었습니다.");
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+    </script>
+</head>
+<body>
+<h1>로그인</h1>
+
+<form th:action="@{/authenticate}" method="post">
+    <div>
+        <label for="username">아이디:</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <div>
+        <button type="submit">로그인</button>
+    </div>
+</form>
+
+<!-- 회원가입 및 아이디/비밀번호 찾기 버튼 -->
+<div>
+    <form th:action="@{/register}" method="get">
+        <button type="submit">회원가입</button>
+    </form>
+    <form th:action="@{/find-id}" method="get">
+        <button type="submit">아이디 찾기</button>
+    </form>
+    <form th:action="@{/find-password}" method="get">
+        <button type="submit">비밀번호 찾기</button>
+    </form>
+</div>
+
+</body>
+</html>

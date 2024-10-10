@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>알림</title>
+  <script>
+    alert("[[${params.message}]]");  <!-- 알림창을 띄움 -->
+    window.location.href = "[[${params.redirectUrl}]]";  <!-- 해당 URL로 리다이렉트 -->
+  </script>
+</head>
+<body>
+</body>
+</html>

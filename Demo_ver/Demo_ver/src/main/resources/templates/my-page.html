@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>마이페이지</title>
+</head>
+<body>
+<h1>마이페이지</h1>
+
+<div th:if="${user}">
+  <p><strong>이름:</strong> <span th:text="${user.name}"></span></p>
+  <p><strong>성별:</strong> <span th:text="${user.gender}"></span></p>
+  <p><strong>생년월일:</strong> <span th:text="${user.birthDate}"></span></p>
+  <p><strong>전화번호:</strong> <span th:text="${user.phoneNumber}"></span></p>
+  <p><strong>이메일:</strong> <span th:text="${user.email}"></span></p>
+</div>
+
+<div th:if="${errorMessage}">
+  <p th:text="${errorMessage}" style="color: red;"></p>
+</div>
+
+<h2>비밀번호 변경</h2>
+<form th:action="@{/my-page/reset-password}" method="post">
+  <label for="oldPassword">현재 비밀번호:</label>
+  <input type="password" id="oldPassword" name="oldPassword" required />
+
+  <label for="newPassword">새 비밀번호:</label>
+  <input type="password" id="newPassword" name="newPassword" required />
+
+  <button type="submit">비밀번호 변경</button>
+</form>
+
+<form th:action="@{/home}" method="get">
+  <button type="submit">홈으로 돌아가기</button>
+</form>
+</body>
+</html>
