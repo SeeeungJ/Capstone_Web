@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인 페이지</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <title>메인 페이지</title>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- Header Include -->
+  <th:block th:replace="~{header :: header}"></th:block>
+
+  <!-- Main Content -->
+  <!-- session 1 -->
+  <div class="main-session" id="main-img-box">
+    <div class="session1-img" id="s1-img1"><img src="#" alt="main img1"></div>
+    <div class="session1-img" id="s1-img2"><img src="#" alt="main img2"></div>
+    <div class="session1-img" id="s1-img3"><img src="#" alt="main img3"></div>
+  </div>
+
+  <!-- sesseion 2 -->
+  <div class="main-session" id="main-content-box">
+    <div class="session2-img" id="s2-img1">
+      <img src="/image/session2_img1.jpg" alt="skin-anlaysis">
+      <a href="#" class="detail-link" id="skin-analysis"><div>자세히 보기</div></a>
+    </div>
+    <div class="session2-img" id="s2-img2">
+      <img src="/image/session2_img2.jpg" alt="personal-color">
+      <a href="#" class="detail-link" id="personal-color"><div>자세히 보기</div></a>
+    </div>
+  </div>
+
+  <!-- session 3 -->
+  <div class="main-session" id="main-cosmetic-box">
+    <div id="session3-title-box">
+      <div id="session3-title">스킨·케어</div>
+    </div>
+    <div id="session3-content-box">
+      <div class="session3-img-box">
+        <div class="session3-img" id="skin-lotion-img">
+          <img src="/image/session3_skin.jpg" alt="skin-lotion">
+        </div>
+        <div class="s3-img-title">스킨 로션</div>
+      </div>
+      <div class="session3-img-box">
+        <div class="session3-img" id="hair-img">
+          <img src="/image/session3_hair.jpg" alt="hair">
+        </div>
+        <div class="s3-img-title">헤어 제품</div>
+      </div>
+      <div class="session3-img-box">
+        <div class="session3-img" id="tint-img">
+          <img src="/image/session3_tint.jpg" alt="tint">
+        </div>
+        <div class="s3-img-title">틴트</div>
+      </div>
+    </div>
+
+    <div id="cosmetic-detail-box">
+      <a href="#" id="cosmetic-detail-link-a"><div id="cosmetic-detail-link-div">더 보러 가기</div></a>
+    </div>
+  </div>
+
+  <!-- Footer Include -->
+  <th:block th:replace="~{footer :: footer}"></th:block>
+</div>
+</body>
+</html>

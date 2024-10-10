@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>퍼스널 컬러 선택 결과</title>
+    <style>
+        .season-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            color: #fff;
+        }
+
+        .spring {
+            background-color: #FFEECC;
+            color: #FF7744;
+        }
+
+        .summer {
+            background-color: #E0F7FA;
+            color: #0077FF;
+        }
+
+        .autumn {
+            background-color: #FFDD99;
+            color: #CC6600;
+        }
+
+        .winter {
+            background-color: #E0E0FF;
+            color: #3333CC;
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .color-palette div {
+            width: 60px;
+            height: 60px;
+            margin: 0 5px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>선택한 퍼스널 컬러</h1>
+
+<div th:class="|season-container ${finalResult.toLowerCase()}|">
+    <h2>당신의 퍼스널 컬러는 <span th:text="${finalResult}"></span>입니다!</h2>
+    <p th:if="${finalResult == 'Spring'}">화사하고 따뜻한 파스텔톤이 잘 어울리는 봄 타입입니다. 밝고 생기 있는 이미지를 강조하세요!</p>
+    <p th:if="${finalResult == 'Summer'}">차분하고 시원한 느낌의 파스텔톤이 잘 어울립니다. 부드럽고 차분한 이미지를 강조하세요!</p>
+    <p th:if="${finalResult == 'Autumn'}">따뜻하고 깊이 있는 톤이 잘 어울립니다. 고급스럽고 안정적인 이미지를 강조하세요!</p>
+    <p th:if="${finalResult == 'Winter'}">시원하고 선명한 컬러가 잘 어울립니다. 강렬하고 세련된 이미지를 강조하세요!</p>
+
+    <div class="color-palette">
+        <div th:if="${finalResult == 'Spring'}" style="background-color: #FFBB77;"></div>
+        <div th:if="${finalResult == 'Spring'}" style="background-color: #FFDDAA;"></div>
+        <div th:if="${finalResult == 'Spring'}" style="background-color: #FFEECC;"></div>
+        <div th:if="${finalResult == 'Spring'}" style="background-color: #FF9999;"></div>
+
+        <div th:if="${finalResult == 'Summer'}" style="background-color: #6699FF;"></div>
+        <div th:if="${finalResult == 'Summer'}" style="background-color: #99CCFF;"></div>
+        <div th:if="${finalResult == 'Summer'}" style="background-color: #B3DAFF;"></div>
+        <div th:if="${finalResult == 'Summer'}" style="background-color: #CCEEFF;"></div>
+
+        <div th:if="${finalResult == 'Autumn'}" style="background-color: #CC6600;"></div>
+        <div th:if="${finalResult == 'Autumn'}" style="background-color: #996633;"></div>
+        <div th:if="${finalResult == 'Autumn'}" style="background-color: #CC9966;"></div>
+        <div th:if="${finalResult == 'Autumn'}" style="background-color: #FFCC99;"></div>
+
+        <div th:if="${finalResult == 'Winter'}" style="background-color: #3333CC;"></div>
+        <div th:if="${finalResult == 'Winter'}" style="background-color: #660099;"></div>
+        <div th:if="${finalResult == 'Winter'}" style="background-color: #9999FF;"></div>
+        <div th:if="${finalResult == 'Winter'}" style="background-color: #333366;"></div>
+    </div>
+</div>
+</body>
+</html>

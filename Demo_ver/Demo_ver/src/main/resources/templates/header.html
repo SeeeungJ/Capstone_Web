@@ -1,0 +1,39 @@
+<header>
+    <div id="header-box">
+        <div id="main-logo"><a href="/"><img src="/image/logo.png" alt="메인 로고"></a></div>
+        <div id="header-test">
+            <div id="header-default">
+                <div class="defalut-box" id="search-box">
+                    <div id="search-img"><img src="/image/search_icon.png" alt="검색"></div>
+                    <input type="text" id="search-bar" placeholder="SEARCH">
+                </div>
+                <div class="" id="header-nav">
+                    <ul>
+                        <a href="#"><li><div class="main-nav-item">피부</div></li></a>
+                        <a href="#"><li><div class="main-nav-item">퍼스널 컬러</div></li></a>
+                        <a href="#"><li><div class="main-nav-item">스킨·케어</div></li></a>
+                        <a href="#"><li><div class="main-nav-item">커뮤니티</div></li></a>
+                    </ul>
+                </div>
+                <div class="default-box" id="box3">
+                    <nav id="user-nav"></nav>
+                    <ul id="user-service">
+                        <!-- 로그인 상태에 따른 표시 -->
+                        <li th:if="${#authentication != null}">
+                            <a class="user-item">안녕하세요, <strong th:text="${#authentication.name}"></strong>님!</a>
+                        </li>
+                        <li th:if="${#authentication == null}" id="login">
+                            <a href="/login" class="user-item">로그인</a>
+                        </li>
+                        <li th:if="${#authentication == null}" id="join">
+                            <a href="/register" class="user-item">회원가입</a>
+                        </li>
+                    </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>

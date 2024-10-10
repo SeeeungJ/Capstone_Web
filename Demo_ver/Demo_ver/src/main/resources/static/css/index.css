@@ -1,0 +1,394 @@
+/* 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body 설정 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+/* Wrapper 설정 */
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header 설정 */
+header {
+    width: 90%;
+    height: 150px;
+    background-color: #fff;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+#header-box {
+    width: 100%;
+    /* justify-content: space-between;
+    align-items: center; */
+}
+
+#main-logo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 60px;
+    /* margin-top: 40px; */
+}
+
+#main-logo img {
+    width: 300px;
+    height: 20px;
+
+    object-fit: cover;
+}
+/*  */
+
+/* 검색 & 로그인 회원가입 */
+#header-default{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+}
+
+#search-box {
+    display: flex;
+    width: 13%;
+}
+
+#search-bar {
+    width: 120px;
+    height: 20px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+}
+
+#search-img img {
+    width: 20px;
+    margin-right: 10px;
+    height: 20px;
+}
+/*  */
+
+
+/* 네비게이션 메뉴 설정 */
+
+#header-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#header-nav li {
+    display: block;
+    text-align: center;
+    margin: .25rem;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+
+#header-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main-nav-item:hover {
+    color: #E1B263;
+    transition-duration: 0.5s;
+
+}
+/*  */
+
+
+/* 로그인 */
+
+#user-nav{
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+#user-service{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#user-service > li.icon{
+    flex-basis: 25%;
+}
+
+.user-item{
+    display: block;
+    text-align: center;
+    margin: .25rem;
+    padding: .5rem 1rem;
+    text-decoration: none;
+    font-size: 14px;
+    color: #909090;
+}
+
+#user-service a:hover {
+    text-shadow: 2px 1px 4px #ccc;
+}
+/*  */
+
+
+/* 메인 배너 섹션 설정 */
+#main-img-box {
+    width: 90%;
+    height: 650px;
+    margin-top: 150px;
+    background-color: #909090;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.session1-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* session 2 설정 */
+#main-content-box {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.session2-img {
+    width: 40%;
+    height: 400px;
+    background-color: #d9d9d9;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.session2-img > img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.detail-link {
+    position: absolute;
+    margin-bottom: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #333;
+}
+
+.detail-link:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* session 3 설정 */
+#main-cosmetic-box {
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+}
+
+#session3-title {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+#session3-content-box{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.session3-img-box {
+    display: inline-block;
+    margin: 20px;
+}
+
+.session3-img {
+    width: 400px;
+    height: 400px;
+    background-color: #d9d9d9;
+}
+
+.session3-img > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.s3-img-title {
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+#cosmetic-detail-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#cosmetic-detail-link-div{
+    width: 200px;
+}
+
+#cosmetic-detail-link-a {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #ececec;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#cosmetic-detail-link-a:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* Footer 설정 */
+footer {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.footer-box {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-logo-box{
+    display: block;
+    width: 300px;
+    height: 300px;
+}
+
+.footer-logo-box > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#v-line{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    border-left: 1px solid #fff;
+    height: 200px;
+}
+
+#footer-nav {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.footer-nav-item {
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.footer-nav-item:hover {
+    text-decoration: underline;
+}
+
+
+#footer-test{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: ; */
+}
+
+#sns-nav {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin-bottom: 20px;
+    height: 24px;
+}
+
+#sns-nav li {
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-align: center;
+    margin: .5rem;
+    /* padding: .5rem 1rem; */
+    text-decoration: none;
+}
+
+#sns-nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#footer-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#footer-detail p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+/* 반응형 설정 */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .session2-img {
+        width: 80%;
+    }
+
+    .session3-img-box {
+        display: block;
+        margin: 0 auto 20px;
+    }
+
+    #footer-nav, #sns-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #footer-nav li, #sns-nav li {
+        margin-bottom: 10px;
+    }
+}

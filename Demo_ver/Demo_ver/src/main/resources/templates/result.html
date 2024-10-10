@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>퍼스널 컬러 테스트</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    /* 이미지 영역을 가운데 정렬 */
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* 이미지 크기를 일정하게 맞추기 */
+    .image-item img {
+      width: 250px;
+      height: 300px;
+      object-fit: cover;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    /* 선택된 이미지에 효과 */
+    .image-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .image-item label {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .color-box {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #000;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+<h1>퍼스널 컬러 테스트</h1>
+
+<form method="post" action="/submit-answers">
+  <h3>1. 가장 잘 어울리는 립 색은?</h3>
+  <div class="image-container">
+    <div class="image-item">
+      <img th:src="@{/output_images/image_1.jpg}" alt="Spring">
+      <label>
+        <input type="radio" name="q1" value="A"> A
+      </label>
+    </div>
+    <div class="image-item">
+      <img th:src="@{/output_images/image_2.jpg}" alt="Summer">
+      <label>
+        <input type="radio" name="q1" value="B"> B
+      </label>
+    </div>
+    <div class="image-item">
+      <img th:src="@{/output_images/image_3.jpg}" alt="Autumn">
+      <label>
+        <input type="radio" name="q1" value="C"> C
+      </label>
+    </div>
+    <div class="image-item">
+      <img th:src="@{/output_images/image_4.jpg}" alt="Winter">
+      <label>
+        <input type="radio" name="q1" value="D"> D
+      </label>
+    </div>
+  </div>
+
+  <h3>2. 피부에 가장 가까운 색은?</h3>
+  <label>
+    <input type="radio" name="q2" value="A">
+    A : #F1D3AF
+    <div class="color-box" style="background-color: #F1D3AF;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q2" value="B">
+    B : #F3CEBB
+    <div class="color-box" style="background-color: #F3CEBB;"></div>
+  </label>
+
+  <h3>3. 머리카락에 가장 가까운 색은?</h3>
+  <label>
+    <input type="radio" name="q3" value="A">
+    A: #895530
+    <div class="color-box" style="background-color: #895530;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q3" value="B">
+    B: #2E2E2E
+    <div class="color-box" style="background-color: #2E2E2E;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q3" value="C">
+    C: #3F2C1E
+    <div class="color-box" style="background-color: #3F2C1E;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q3" value="D">
+    D: #060405
+    <div class="color-box" style="background-color: #060405;"></div>
+  </label>
+
+  <h3>4. 눈동자 색은?</h3>
+  <label>
+    <input type="radio" name="q4" value="A">
+    A: #895530
+    <div class="color-box" style="background-color: #895530;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q4" value="B">
+    B: #2E2E2E
+    <div class="color-box" style="background-color: #2E2E2E;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q4" value="C">
+    C: #3F2C1E
+    <div class="color-box" style="background-color: #3F2C1E;"></div>
+  </label>
+  <label>
+    <input type="radio" name="q4" value="D">
+    D: #060405
+    <div class="color-box" style="background-color: #060405;"></div>
+  </label>
+
+  <h3>5. 주변에서 듣는 이미지는?</h3>
+  <label>
+    <input type="radio" name="q5" value="A"> A: 어려 보이고 친밀한 느낌
+  </label>
+  <label>
+    <input type="radio" name="q5" value="B"> B: 부드럽고 여성스러운 느낌
+  </label>
+  <label>
+    <input type="radio" name="q5" value="C"> C: 성숙하고 차분한 느낌
+  </label>
+  <label>
+    <input type="radio" name="q5" value="D"> D: 도시적이며 샤프한 느낌
+  </label>
+
+  <br><br>
+  <button type="submit">결과 확인</button>
+</form>
+</body>
+</html>

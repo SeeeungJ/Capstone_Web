@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가상 메이크업 애플리케이션</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    #controls {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .control-button {
+      padding: 10px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .control-button:hover {
+      background-color: #555;
+    }
+    #palette {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .color-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .color-option:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
+    #webcam {
+      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+</head>
+<body>
+<h1>가상 메이크업 애플리케이션</h1>
+
+<div id="controls">
+  <button class="control-button" onclick="selectMakeupType('foundation')">파운데이션</button>
+  <button class="control-button" onclick="selectMakeupType('lipstick')">립스틱</button>
+</div>
+
+<div id="palette"></div>
+
+<video id="webcam" autoplay playsinline width="640" height="480"></video>
+<canvas id="outputCanvas" width="640" height="480"></canvas>
+
+<script>
+  const videoElement = document.getElementById('webcam');
+  const canvasElement = document.getElementById('outputCanvas');
+  const canvasCtx = canvasElement.getContext('2d');
+  const paletteElement = document.getElementById('palette');
+
+  let currentMakeupType = null;
+  let currentFoundationColor = null;
+  let currentLipstickColor = null;
+
+  // Mediapipe face mesh 모델 초기화
+  const faceMesh = new FaceMesh({
+    locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }
+  });
+
+  faceMesh.setOptions({
+    maxNumFaces: 1,
+    refineLandmarks: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+  });
+
+  faceMesh.onResults(onResults);
+
+  // Webcam 사용
+  const camera = new Camera(videoElement, {
+    onFrame: async () => {
+      await faceMesh.send({ image: videoElement });
+    },
+    width: 640,
+    height: 480
+  });
+  camera.start();
+
+  function selectMakeupType(type) {
+    currentMakeupType = type;
+    updatePalette();
+  }
+
+  function updatePalette() {
+    paletteElement.innerHTML = '';
+    let colors;
+    if (currentMakeupType === 'foundation') {
+      colors = ['#f0e5d6', '#e8d4c3', '#e0c3b0', '#d6b097', '#c89a7d'];
+    } else if (currentMakeupType === 'lipstick') {
+      colors = ['#ff8080', '#ff4d4d', '#ff1a1a', '#cc0000', '#990000'];
+    }
+    if (colors) {
+      colors.forEach(color => {
+        const colorDiv = document.createElement('div');
+        colorDiv.className = 'color-option';
+        colorDiv.style.backgroundColor = color;
+        colorDiv.onclick = () => {
+          if (currentMakeupType === 'foundation') {
+            currentFoundationColor = color;
+          } else if (currentMakeupType === 'lipstick') {
+            currentLipstickColor = color;
+          }
+        };
+        paletteElement.appendChild(colorDiv);
+      });
+    }
+  }
+
+  function hexToRGB(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return { r, g, b };
+  }
+
+  function onResults(results) {
+    // Canvas 초기화
+    canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+    if (results.multiFaceLandmarks) {
+      for (const landmarks of results.multiFaceLandmarks) {
+        if (currentFoundationColor) {
+          applyFoundation(landmarks);
+        }
+        if (currentLipstickColor) {
+          applyLipstick(landmarks);
+        }
+      }
+    }
+    canvasCtx.restore();
+  }
+
+  function applyFoundation(landmarks) {
+    const foundationColorRGB = hexToRGB(currentFoundationColor);
+    canvasCtx.fillStyle = `rgba(${foundationColorRGB.r}, ${foundationColorRGB.g}, ${foundationColorRGB.b}, 0.2)`;
+
+    const facePoints = landmarks.slice(10, 338).map(landmark => ({
+      x: landmark.x * canvasElement.width,
+      y: landmark.y * canvasElement.height,
+    }));
+
+    // 얼굴 영역을 부드럽게 그리기 (보간법 적용)
+    canvasCtx.beginPath();
+    for (let i = 0; i < facePoints.length; i++) {
+      const { x, y } = facePoints[i];
+      if (i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+    }
+    canvasCtx.closePath();
+    canvasCtx.filter = 'blur(15px)';
+    canvasCtx.fill();
+    canvasCtx.filter = 'none';
+  }
+
+  function applyLipstick(landmarks) {
+    const lipColorRGB = hexToRGB(currentLipstickColor);
+    canvasCtx.fillStyle = `rgba(${lipColorRGB.r}, ${lipColorRGB.g}, ${lipColorRGB.b}, 0.7)`;
+
+    const upperLip = [
+      61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291
+    ];
+    const lowerLip = [
+      61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291
+    ];
+
+    drawSmoothLipArea(upperLip, landmarks);
+    drawSmoothLipArea(lowerLip, landmarks);
+
+    // 입술 내부 비우기
+    applyInnerLipTransparency(landmarks);
+  }
+
+  function drawSmoothLipArea(lipIndices, landmarks) {
+    canvasCtx.beginPath();
+    for (let i = 0; i < lipIndices.length; i++) {
+      const point = landmarks[lipIndices[i]];
+      const x = point.x * canvasElement.width;
+      const y = point.y * canvasElement.height;
+      if (i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+    }
+    canvasCtx.closePath();
+    canvasCtx.filter = 'blur(3px)';
+    canvasCtx.fill();
+    canvasCtx.filter = 'none';
+  }
+
+  function applyInnerLipTransparency(landmarks) {
+    // 입술 안쪽 영역을 완전히 투명하게 처리
+    const innerLip = [
+      78, 95, 88, 178, 87, 14, 317, 402, 318, 324, 308
+    ];
+    canvasCtx.globalCompositeOperation = 'destination-out';
+    canvasCtx.beginPath();
+    for (let i = 0; i < innerLip.length; i++) {
+      const point = landmarks[innerLip[i]];
+      const x = point.x * canvasElement.width;
+      const y = point.y * canvasElement.height;
+      if (i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+    }
+    canvasCtx.closePath();
+    canvasCtx.fill();
+    canvasCtx.globalCompositeOperation = 'source-over';
+  }
+</script>
+</body>
+</html>
