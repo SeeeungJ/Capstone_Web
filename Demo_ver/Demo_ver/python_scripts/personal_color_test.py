@@ -1,3 +1,4 @@
+import os
 import cv2
 import dlib
 import numpy as np
@@ -6,7 +7,7 @@ from collections import OrderedDict
 
 # Dlib 얼굴 검출기와 랜드마크 예측기 로드
 face_detector = dlib.get_frontal_face_detector()
-landmark_predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")  # 랜드마크 모델
+landmark_predictor = dlib.shape_predictor("Demo_ver/Demo_ver/shape_predictor_68_face_landmarks.dat")  # 랜드마크 모델 경로
 
 # 퍼스널 컬러 색상 컬렉션 (BGR 순서)
 lip_colors = OrderedDict({
@@ -34,7 +35,7 @@ for face in faces:
     # 랜드마크 추정
     landmarks = landmark_predictor(gray, face)
 
-    # 입술 부분의 랜드마크 좌표 추출2
+    # 입술 부분의 랜드마크 좌표 추출
     lip_points = [(landmarks.part(i).x, landmarks.part(i).y) for i in lip_indices]
 
     # 입술에 색상 적용
@@ -42,7 +43,7 @@ for face in faces:
     cv2.fillPoly(mask, [np.array(lip_points, dtype=np.int32)], (255, 255, 255))
 
     # 마스크의 가장자리 부드럽게 처리
-    blurred_mask = cv2.GaussianBlur(mask, (15, 15), 0)  # 커널 크기를 조절할 수 있습니다
+    blurred_mask = cv2.GaussianBlur(mask, (15, 15), 0)
 
     lip_color = lip_colors[color_key]
 
@@ -67,9 +68,14 @@ for face in faces:
     # 원본 이미지와 색상을 적용한 이미지를 부드럽게 혼합
     combined_frame = cv2.addWeighted(image, 0.8, colored_frame, 0.2, 0)  # 원본 비율을 0.8로 설정
 
-    # 이미지 저장 경로 설정
-    output_path = f"src/main/resources/static/output_images/image_{color_key}.jpg"
-    cv2.imwrite(output_path, combined_frame)
+# 현재 파일의 절대 경로를 기준으로, 원하는 output_images 폴더 경로 설정
+output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "main", "resources", "static", "output_images"))
 
-# 경로 출력 (Java에서 처리할 수 있게)
+# 이미지 파일 경로 설정
+output_path = os.path.join(output_dir, f"image_{color_key}.jpg")
+
+# 이미지 저장
+cv2.imwrite(output_path, combined_frame)
+
+# 경로 출력
 print(f"Image saved at {output_path}")
